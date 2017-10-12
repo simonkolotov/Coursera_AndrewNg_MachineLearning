@@ -44,7 +44,7 @@ fprintf('First 10 examples from the dataset: \n');
 fprintf(' x = [%.0f %.0f], y = %.0f \n', [X(1:10,:) y(1:10,:)]');
 
 fprintf('Program paused. Press enter to continue.\n');
-pause;
+%pause;
 
 % Scale features and set them to zero mean
 fprintf('Normalizing Features ...\n');
@@ -53,7 +53,6 @@ fprintf('Normalizing Features ...\n');
 
 % Add intercept term to X
 X = [ones(m, 1) X];
-
 
 %% ================ Part 2: Gradient Descent ================
 
@@ -82,8 +81,8 @@ X = [ones(m, 1) X];
 fprintf('Running gradient descent ...\n');
 
 % Choose some alpha value
-alpha = 0.01;
-num_iters = 400;
+alpha = 1;
+num_iters = 40;
 
 % Init Theta and Run Gradient Descent 
 theta = zeros(3, 1);
@@ -104,7 +103,18 @@ fprintf('\n');
 % ====================== YOUR CODE HERE ======================
 % Recall that the first column of X is all-ones. Thus, it does
 % not need to be normalized.
-price = 0; % You should change this
+
+%UnitTest
+testInput = X(5,:)
+testOutput = testInput*theta
+testTrueValue = y(5)
+testError = abs(testTrueValue - testOutput)
+
+testHouseArea = 1650;
+testHouseBrNum = 3;
+testInput = [testHouseArea testHouseBrNum];
+testInputNorm = normalize(testInput,mu,sigma,true); 
+price = testInputNorm*theta;% You should change this
 
 
 % ============================================================
@@ -113,7 +123,7 @@ fprintf(['Predicted price of a 1650 sq-ft, 3 br house ' ...
          '(using gradient descent):\n $%f\n'], price);
 
 fprintf('Program paused. Press enter to continue.\n');
-pause;
+%pause;
 
 %% ================ Part 3: Normal Equations ================
 
@@ -146,10 +156,16 @@ fprintf('Theta computed from the normal equations: \n');
 fprintf(' %f \n', theta);
 fprintf('\n');
 
+%UnitTest
+testInput = X(5,:)
+testOutput = testInput*theta
+testTrueValue = y(5)
+testError = abs(testTrueValue - testOutput)
+
 
 % Estimate the price of a 1650 sq-ft, 3 br house
 % ====================== YOUR CODE HERE ======================
-price = 0; % You should change this
+price = testInputNorm*theta; % You should change this
 
 
 % ============================================================
