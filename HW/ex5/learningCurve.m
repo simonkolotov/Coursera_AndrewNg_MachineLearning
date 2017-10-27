@@ -18,8 +18,15 @@ function [error_train, error_val] = ...
 m = size(X, 1);
 
 % You need to return these values correctly
-error_train = zeros(m, 1);
-error_val   = zeros(m, 1);
+for trainSize = 1:m
+    XTest = X(1:trainSize, :);
+    yTest = y(1:trainSize);
+    % evaluate theta on training set
+    theta = trainLinearReg(XTest, yTest, lambda);
+    
+    error_train(trainSize) = linearRegCostFunction(XTest, yTest, theta, 0);
+    error_val(trainSize)   = linearRegCostFunction(Xval, yval, theta, 0);
+end
 
 % ====================== YOUR CODE HERE ======================
 % Instructions: Fill in this function to return training errors in 
@@ -51,15 +58,6 @@ error_val   = zeros(m, 1);
 %       end
 %
 
-% ---------------------- Sample Solution ----------------------
-
-
-
-
-
-
-
-% -------------------------------------------------------------
 
 % =========================================================================
 
